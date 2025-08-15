@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Garanties - LUNÉORA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6F4E37;
+            --secondary: #B59B7B;
+            --light-primary: #E9DCD4;
+            --accent: #C4A88A;
+            --text: #333333;
+            --text-light: #595959;
+            --bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f8f9fa;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .garanties-section {
+            background: var(--bg);
+            padding: 60px 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: #595959;
+            font-size: 14px;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .garanties-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .garantie-card {
+            background: var(--bg);
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(111, 78, 55, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .garantie-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .garantie-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(111, 78, 55, 0.15);
+            border-color: var(--primary);
+        }
+
+        .garantie-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .garantie-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--light-primary), #f0e6dc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .garantie-card:hover .garantie-icon {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .garantie-icon i {
+            font-size: 36px;
+            color: var(--primary);
+            transition: all 0.4s ease;
+        }
+
+        .garantie-card:hover .garantie-icon i {
+            color: white;
+            transform: rotateY(360deg);
+        }
+
+        .garantie-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .garantie-card:hover .garantie-title {
+            color: var(--primary);
+        }
+
+        .garantie-description {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+            transition: color 0.3s ease;
+        }
+
+        .garantie-card:hover .garantie-description {
+            color: var(--text);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .garanties-section {
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        .garantie-card {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .garantie-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .garantie-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .garantie-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .garantie-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .garanties-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .garanties-section {
+                padding: 40px 20px;
+                border-radius: 15px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+            }
+
+            .garanties-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+                margin-top: 30px;
+            }
+
+            .garantie-card {
+                padding: 30px 20px;
+                border-radius: 15px;
+            }
+
+            .garantie-icon {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 18px;
+            }
+
+            .garantie-icon i {
+                font-size: 30px;
+            }
+
+            .garantie-title {
+                font-size: 16px;
+            }
+
+            .garantie-description {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .garanties-section {
+                padding: 30px 15px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .garantie-card {
+                padding: 25px 15px;
+            }
+        }
+
+        /* Hover effects for mobile */
+        @media (hover: none) {
+            .garantie-card:hover {
+                transform: none;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            }
+
+            .garantie-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Focus states for accessibility */
+        .garantie-card:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .garantie-card {
+                border: 2px solid var(--text);
+            }
+            
+            .garantie-icon {
+                background: var(--text);
+            }
+            
+            .garantie-icon i {
+                color: var(--bg);
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .garantie-card,
+            .garantie-icon,
+            .garantie-icon i {
+                transition: none;
+            }
+            
+            .garanties-section,
+            .garantie-card {
+                animation: none;
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="garanties-section">
+        <div class="section-header">
+            <h2 class="section-title">Nos Garanties</h2>
+            <p class="section-subtitle">Achetez en toute confiance, on s'occupe du reste.</p>
+        </div>
+        
+        <div class="garanties-grid">
+            <div class="garantie-card" tabindex="0">
+                <div class="garantie-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3 class="garantie-title">Produits BIO</h3>
+                <p class="garantie-description">Formulés avec des ingrédients certifiés biologiques pour respecter votre peau et l'environnement.</p>
+            </div>
+            
+            <div class="garantie-card" tabindex="0">
+                <div class="garantie-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="garantie-title">Ingrédients Naturels</h3>
+                <p class="garantie-description">Douceur et efficacité pour votre peau grâce à des composants 100% naturels et respectueux.</p>
+            </div>
+            
+            <div class="garantie-card" tabindex="0">
+                <div class="garantie-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3 class="garantie-title">Certifications</h3>
+                <p class="garantie-description">ISO22716, ONSSA, Certification HALAL - Qualité et conformité garanties par les meilleurs standards.</p>
+            </div>
+            
+            <div class="garantie-card" tabindex="0">
+                <div class="garantie-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="garantie-title">Testé & Approuvé</h3>
+                <p class="garantie-description">Nos produits garantissent l'efficacité et l'innocuité grâce à des tests rigoureux et approfondis.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Add interactive hover effects for better UX
+        const cards = document.querySelectorAll('.garantie-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                // Add subtle parallax effect
+                const icon = this.querySelector('.garantie-icon');
+                const title = this.querySelector('.garantie-title');
+                
+                icon.style.transform = 'scale(1.1) translateY(-2px)';
+                title.style.transform = 'translateY(-1px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.garantie-icon');
+                const title = this.querySelector('.garantie-title');
+                
+                icon.style.transform = '';
+                title.style.transform = '';
+            });
+            
+            // Add click animation for mobile
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for scroll animations
+        cards.forEach(card => {
+            card.style.animationPlayState = 'paused';
+            observer.observe(card);
+        });
+
+        // Add keyboard navigation support
+        cards.forEach((card, index) => {
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+                
+                // Arrow key navigation
+                if (e.key === 'ArrowRight' && index < cards.length - 1) {
+                    cards[index + 1].focus();
+                }
+                if (e.key === 'ArrowLeft' && index > 0) {
+                    cards[index - 1].focus();
+                }
+                if (e.key === 'ArrowDown' && index + 2 < cards.length) {
+                    cards[index + 2].focus();
+                }
+                if (e.key === 'ArrowUp' && index - 2 >= 0) {
+                    cards[index - 2].focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
