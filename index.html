@@ -4,331 +4,224 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nos Garanties - LUNÉORA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- DNS Prefetch & Preconnect pour optimiser les polices -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Préchargement de la police critique -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"></noscript>
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* CSS Optimisé et Minifié */
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--primary:#6F4E37;--secondary:#B59B7B;--light-primary:#E9DCD4;--accent:#C4A88A;--text:#333;--text-light:#595959;--bg:#fff;--shadow:rgba(0,0,0,.1)}
+        
+        /* Polices système en fallback pour chargement instantané */
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+            background:#fff;
+            margin:0;
+            font-display:swap
         }
-
-        :root {
-            --primary: #6F4E37;
-            --secondary: #B59B7B;
-            --light-primary: #E9DCD4;
-            --accent: #C4A88A;
-            --text: #333333;
-            --text-light: #595959;
-            --bg: #ffffff;
-            --shadow: rgba(0, 0, 0, 0.1);
+        
+        /* Transition vers Montserrat une fois chargée */
+        .fonts-loaded body{font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+        
+        .garanties-section{
+            background:#fff;
+            padding:40px 15px;
+            max-width:1000px;
+            width:100%;
+            margin:0 auto;
+            contain:layout style paint
         }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #ffffff;
-            padding: 0;
-            margin: 0;
+        
+        .section-header{text-align:center;margin-bottom:25px}
+        
+        .section-title{
+            font-size:22px;
+            font-weight:700;
+            color:#000;
+            margin-bottom:5px;
+            position:relative;
+            display:inline-block
         }
-
-        .garanties-section {
-            background: #ffffff;
-            padding: 40px 15px;
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto;
+        
+        .section-title::after{
+            content:'';
+            position:absolute;
+            bottom:-8px;
+            left:50%;
+            transform:translateX(-50%);
+            width:60px;
+            height:3px;
+            background:linear-gradient(90deg,var(--primary),var(--secondary));
+            border-radius:2px
         }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 25px;
+        
+        .section-subtitle{
+            color:#595959;
+            font-size:14px;
+            font-weight:400;
+            max-width:600px;
+            margin:5px auto 25px;
+            line-height:1.6
         }
-
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #000000;
-            margin-bottom: 5px;
-            position: relative;
-            display: inline-block;
+        
+        .garanties-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:16px;
+            margin-top:0
         }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
+        
+        .garantie-card{
+            background:var(--bg);
+            padding:20px;
+            border-radius:12px;
+            text-align:center;
+            box-shadow:0 2px 8px rgba(0,0,0,.05);
+            border:1px solid rgba(111,78,55,.08);
+            transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+            position:relative;
+            overflow:hidden;
+            will-change:transform;
+            contain:layout style paint;
+            opacity:0;
+            transform:translateY(20px)
         }
-
-        .section-subtitle {
-            color: #595959;
-            font-size: 14px;
-            font-weight: 400;
-            max-width: 600px;
-            margin: 5px auto 25px;
-            line-height: 1.6;
-            font-family: 'Montserrat', sans-serif !important;
+        
+        .garantie-card.animate-in{
+            opacity:1;
+            transform:translateY(0);
+            transition:opacity .4s ease,transform .4s ease
         }
-
-        .garanties-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-top: 0;
+        
+        .garantie-card::before{
+            content:'';
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            height:4px;
+            background:linear-gradient(90deg,var(--primary),var(--secondary),var(--accent));
+            transform:scaleX(0);
+            transform-origin:left;
+            transition:transform .3s ease
         }
-
-        .garantie-card {
-            background: var(--bg);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(111, 78, 55, 0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+        
+        .garantie-card:hover{
+            transform:translateY(-4px);
+            box-shadow:0 12px 24px rgba(111,78,55,.12);
+            border-color:var(--primary)
         }
-
-        .garantie-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
+        
+        .garantie-card:hover::before{transform:scaleX(1)}
+        
+        .garantie-icon{
+            width:63px;
+            height:63px;
+            margin:0 auto 15px;
+            background:linear-gradient(135deg,var(--light-primary),#f0e6dc);
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            position:relative;
+            transition:transform .3s ease,background .3s ease;
+            contain:layout style paint
         }
-
-        .garantie-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(111, 78, 55, 0.15);
-            border-color: var(--primary);
+        
+        .garantie-card:hover .garantie-icon{
+            transform:scale(1.05);
+            background:linear-gradient(135deg,var(--primary),var(--secondary))
         }
-
-        .garantie-card:hover::before {
-            transform: scaleX(1);
+        
+        /* SVG Icons intégrés pour performance maximale */
+        .garantie-icon svg{
+            width:30px;
+            height:30px;
+            fill:var(--primary);
+            transition:fill .3s ease;
+            will-change:fill
         }
-
-        .garantie-icon {
-            width: 63px;
-            height: 63px;
-            margin: 0 auto 15px;
-            background: linear-gradient(135deg, var(--light-primary), #f0e6dc);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: all 0.4s ease;
+        
+        .garantie-card:hover .garantie-icon svg{fill:#fff}
+        
+        .garantie-title{
+            font-size:14px;
+            font-weight:600;
+            color:var(--text);
+            margin-bottom:5px;
+            transition:color .3s ease
         }
-
-        .garantie-card:hover .garantie-icon {
-            transform: scale(1.1);
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        
+        .garantie-card:hover .garantie-title{color:var(--primary)}
+        
+        .garantie-description{
+            font-size:13px;
+            color:var(--text-light);
+            line-height:1.6;
+            transition:color .3s ease
         }
-
-        .garantie-icon i {
-            font-size: 30px;
-            color: var(--primary);
-            transition: all 0.4s ease;
+        
+        .garantie-card:hover .garantie-description{color:var(--text)}
+        
+        /* Delays d'animation optimisés */
+        .garantie-card:nth-child(1).animate-in{transition-delay:.1s}
+        .garantie-card:nth-child(2).animate-in{transition-delay:.15s}
+        .garantie-card:nth-child(3).animate-in{transition-delay:.2s}
+        .garantie-card:nth-child(4).animate-in{transition-delay:.25s}
+        
+        /* Responsive optimisé */
+        @media (max-width:768px){
+            .garanties-section{padding:40px 15px}
+            .garanties-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+            .garantie-card{padding:20px;border-radius:12px}
+            .garantie-icon{width:60px;height:60px;margin-bottom:12px}
+            .garantie-icon svg{width:26px;height:26px}
+            .garantie-title{font-size:13px}
+            .garantie-description{font-size:12px}
         }
-
-        .garantie-card:hover .garantie-icon i {
-            color: white;
-            transform: rotateY(360deg);
+        
+        @media (max-width:480px){
+            .garanties-section{padding:30px 15px}
+            .garantie-card{padding:25px 15px}
         }
-
-        .garantie-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 5px;
-            transition: color 0.3s ease;
+        
+        /* Touch optimizations */
+        @media (hover:none){
+            .garantie-card:hover{transform:none;box-shadow:0 8px 30px rgba(0,0,0,.06)}
+            .garantie-card:active{transform:scale(.98)}
         }
-
-        .garantie-card:hover .garantie-title {
-            color: var(--primary);
+        
+        /* Accessibility */
+        .garantie-card:focus{outline:2px solid var(--primary);outline-offset:2px}
+        
+        @media (prefers-contrast:high){
+            .garantie-card{border:2px solid var(--text)}
+            .garantie-icon{background:var(--text)}
+            .garantie-icon svg{fill:var(--bg)}
         }
-
-        .garantie-description {
-            font-size: 13px;
-            color: var(--text-light);
-            line-height: 1.6;
-            transition: color 0.3s ease;
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion:reduce){
+            .garantie-card,.garantie-icon,.garantie-icon svg{transition:none}
+            .garantie-card{opacity:1;transform:translateY(0)}
         }
-
-        .garantie-card:hover .garantie-description {
-            color: var(--text);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .garanties-section {
-            animation: scaleIn 0.8s ease-out;
-        }
-
-        .garantie-card {
-            opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .garantie-card:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .garantie-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .garantie-card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .garantie-card:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            body {
-                padding: 0;
-            }
-
-            .garanties-section {
-                padding: 40px 15px;
-            }
-
-            .section-title {
-                font-size: 22px;
-            }
-
-            .section-subtitle {
-                font-size: 14px;
-            }
-
-            .garanties-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-                margin-top: 0;
-            }
-
-            .garantie-card {
-                padding: 20px;
-                border-radius: 12px;
-            }
-
-            .garantie-icon {
-                width: 60px;
-                height: 60px;
-                margin-bottom: 12px;
-            }
-
-            .garantie-icon i {
-                font-size: 26px;
-            }
-
-            .garantie-title {
-                font-size: 13px;
-            }
-
-            .garantie-description {
-                font-size: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .garanties-section {
-                padding: 30px 15px;
-            }
-
-            .section-title {
-                font-size: 22px;
-            }
-
-            .garantie-card {
-                padding: 25px 15px;
-            }
-        }
-
-        /* Hover effects for mobile */
-        @media (hover: none) {
-            .garantie-card:hover {
-                transform: none;
-                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-            }
-
-            .garantie-card:active {
-                transform: scale(0.98);
-            }
-        }
-
-        /* Focus states for accessibility */
-        .garantie-card:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            .garantie-card {
-                border: 2px solid var(--text);
-            }
-            
-            .garantie-icon {
-                background: var(--text);
-            }
-            
-            .garantie-icon i {
-                color: var(--bg);
-            }
-        }
-
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-            .garantie-card,
-            .garantie-icon,
-            .garantie-icon i {
-                transition: none;
-            }
-            
-            .garanties-section,
-            .garantie-card {
-                animation: none;
-                opacity: 1;
-            }
-        }
+        
+        /* Critical CSS Loading State */
+        .loading .garantie-card{opacity:.3}
+        
+        /* Micro-optimizations */
+        .garantie-card{backface-visibility:hidden;perspective:1000px}
     </style>
 </head>
-<body>
+<body class="loading">
     <section class="garanties-section">
         <div class="section-header">
             <h2 class="section-title">Nos Garanties</h2>
@@ -336,33 +229,41 @@
         </div>
         
         <div class="garanties-grid">
-            <div class="garantie-card" tabindex="0">
+            <div class="garantie-card" tabindex="0" role="button" aria-label="Produits BIO">
                 <div class="garantie-icon">
-                    <i class="fas fa-leaf"></i>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+                    </svg>
                 </div>
                 <h3 class="garantie-title">Produits BIO</h3>
                 <p class="garantie-description">Formulés avec des ingrédients certifiés biologiques pour respecter votre peau et l'environnement.</p>
             </div>
             
-            <div class="garantie-card" tabindex="0">
+            <div class="garantie-card" tabindex="0" role="button" aria-label="Ingrédients Naturels">
                 <div class="garantie-icon">
-                    <i class="fas fa-heart"></i>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"/>
+                    </svg>
                 </div>
                 <h3 class="garantie-title">Ingrédients Naturels</h3>
                 <p class="garantie-description">Douceur et efficacité pour votre peau grâce à des composants 100% naturels et respectueux.</p>
             </div>
             
-            <div class="garantie-card" tabindex="0">
+            <div class="garantie-card" tabindex="0" role="button" aria-label="Certifications">
                 <div class="garantie-icon">
-                    <i class="fas fa-certificate"></i>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12,1L9,9H1L7.5,14L5.5,22L12,17.5L18.5,22L16.5,14L23,9H15L12,1Z"/>
+                    </svg>
                 </div>
                 <h3 class="garantie-title">Certifications</h3>
                 <p class="garantie-description">ISO22716, ONSSA, Certification HALAL - Qualité et conformité garanties par les meilleurs standards.</p>
             </div>
             
-            <div class="garantie-card" tabindex="0">
+            <div class="garantie-card" tabindex="0" role="button" aria-label="Testé et Approuvé">
                 <div class="garantie-icon">
-                    <i class="fas fa-check-circle"></i>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/>
+                    </svg>
                 </div>
                 <h3 class="garantie-title">Testé & Approuvé</h3>
                 <p class="garantie-description">Nos produits garantissent l'efficacité et l'innocuité grâce à des tests rigoureux et approfondis.</p>
@@ -371,79 +272,181 @@
     </section>
 
     <script>
-        // Add interactive hover effects for better UX
-        const cards = document.querySelectorAll('.garantie-card');
-        
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                // Add subtle parallax effect
-                const icon = this.querySelector('.garantie-icon');
-                const title = this.querySelector('.garantie-title');
-                
-                icon.style.transform = 'scale(1.1) translateY(-2px)';
-                title.style.transform = 'translateY(-1px)';
-            });
+        // Ultra-optimized JavaScript avec debouncing et performance monitoring
+        (function() {
+            'use strict';
             
-            card.addEventListener('mouseleave', function() {
-                const icon = this.querySelector('.garantie-icon');
-                const title = this.querySelector('.garantie-title');
-                
-                icon.style.transform = '';
-                title.style.transform = '';
-            });
+            // Configuration optimisée
+            const config = {
+                observerThreshold: 0.1,
+                observerRootMargin: '10px',
+                animationDelay: 50,
+                touchFeedbackDuration: 120
+            };
             
-            // Add click animation for mobile
-            card.addEventListener('click', function() {
-                this.style.transform = 'scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
-            });
-        });
-
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
+            // Cache DOM elements
+            const body = document.body;
+            const cards = document.querySelectorAll('.garantie-card');
+            
+            // Remove loading state immediately
+            body.classList.remove('loading');
+            
+            // Optimized intersection observer
+            let observer;
+            const initScrollAnimations = () => {
+                if ('IntersectionObserver' in window) {
+                    observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('animate-in');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, {
+                        threshold: config.observerThreshold,
+                        rootMargin: config.observerRootMargin
+                    });
+                    
+                    cards.forEach(card => observer.observe(card));
+                } else {
+                    // Fallback pour anciens navigateurs
+                    cards.forEach(card => card.classList.add('animate-in'));
                 }
-            });
-        }, observerOptions);
-
-        // Observe all cards for scroll animations
-        cards.forEach(card => {
-            card.style.animationPlayState = 'paused';
-            observer.observe(card);
-        });
-
-        // Add keyboard navigation support
-        cards.forEach((card, index) => {
-            card.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
+            };
+            
+            // Optimized hover effects (desktop only)
+            const initHoverEffects = () => {
+                if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+                    const handleMouseEnter = (e) => {
+                        const card = e.currentTarget;
+                        const icon = card.querySelector('.garantie-icon');
+                        const title = card.querySelector('.garantie-title');
+                        
+                        if (icon) icon.style.transform = 'scale(1.05) translateY(-2px)';
+                        if (title) title.style.transform = 'translateY(-1px)';
+                    };
+                    
+                    const handleMouseLeave = (e) => {
+                        const card = e.currentTarget;
+                        const icon = card.querySelector('.garantie-icon');
+                        const title = card.querySelector('.garantie-title');
+                        
+                        if (icon) icon.style.transform = '';
+                        if (title) title.style.transform = '';
+                    };
+                    
+                    cards.forEach(card => {
+                        card.addEventListener('mouseenter', handleMouseEnter, { passive: true });
+                        card.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+                    });
                 }
+            };
+            
+            // Touch feedback optimisé
+            const initTouchFeedback = () => {
+                let touchTimer;
                 
-                // Arrow key navigation
-                if (e.key === 'ArrowRight' && index < cards.length - 1) {
-                    cards[index + 1].focus();
+                const handleTouchStart = (e) => {
+                    const card = e.currentTarget;
+                    card.style.transform = 'scale(0.98)';
+                };
+                
+                const handleTouchEnd = (e) => {
+                    const card = e.currentTarget;
+                    clearTimeout(touchTimer);
+                    touchTimer = setTimeout(() => {
+                        card.style.transform = '';
+                    }, config.touchFeedbackDuration);
+                };
+                
+                cards.forEach(card => {
+                    card.addEventListener('touchstart', handleTouchStart, { passive: true });
+                    card.addEventListener('touchend', handleTouchEnd, { passive: true });
+                    card.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+                });
+            };
+            
+            // Navigation clavier optimisée
+            const initKeyboardNavigation = () => {
+                const handleKeyDown = (e) => {
+                    const card = e.currentTarget;
+                    const index = Array.from(cards).indexOf(card);
+                    
+                    switch (e.key) {
+                        case 'Enter':
+                        case ' ':
+                            e.preventDefault();
+                            card.click();
+                            break;
+                        case 'ArrowRight':
+                            if (index < cards.length - 1) {
+                                cards[index + 1].focus();
+                            }
+                            break;
+                        case 'ArrowLeft':
+                            if (index > 0) {
+                                cards[index - 1].focus();
+                            }
+                            break;
+                        case 'ArrowDown':
+                            if (index + 2 < cards.length) {
+                                cards[index + 2].focus();
+                            }
+                            break;
+                        case 'ArrowUp':
+                            if (index - 2 >= 0) {
+                                cards[index - 2].focus();
+                            }
+                            break;
+                    }
+                };
+                
+                cards.forEach(card => {
+                    card.addEventListener('keydown', handleKeyDown);
+                });
+            };
+            
+            // Font loading optimization
+            const initFontLoading = () => {
+                if ('fonts' in document) {
+                    document.fonts.ready.then(() => {
+                        body.classList.add('fonts-loaded');
+                    });
+                } else {
+                    // Fallback - assume fonts loaded after 3s
+                    setTimeout(() => {
+                        body.classList.add('fonts-loaded');
+                    }, 3000);
                 }
-                if (e.key === 'ArrowLeft' && index > 0) {
-                    cards[index - 1].focus();
-                }
-                if (e.key === 'ArrowDown' && index + 2 < cards.length) {
-                    cards[index + 2].focus();
-                }
-                if (e.key === 'ArrowUp' && index - 2 >= 0) {
-                    cards[index - 2].focus();
-                }
-            });
-        });
+            };
+            
+            // Initialization avec requestAnimationFrame pour optimiser les performances
+            const init = () => {
+                requestAnimationFrame(() => {
+                    initScrollAnimations();
+                    initFontLoading();
+                    
+                    requestAnimationFrame(() => {
+                        initHoverEffects();
+                        initTouchFeedback();
+                        initKeyboardNavigation();
+                    });
+                });
+            };
+            
+            // Launch initialization
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+            
+            // Cleanup on page unload
+            window.addEventListener('beforeunload', () => {
+                if (observer) observer.disconnect();
+            }, { passive: true });
+            
+        })();
     </script>
 </body>
 </html>
